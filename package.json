@@ -1,6 +1,6 @@
 {
   "name": "acs-care-admin",
-  "homepage": "https://digitalengage.ca/ACS",  
+  "homepage": "https://shahbaz266272.github.io/acsAdmin",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://ec2-18-212-236-109.compute-1.amazonaws.com",
@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "formik": "^2.2.9",
+    "gh-pages": "^3.2.3",
     "json-server": "^0.16.3",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
@@ -29,6 +30,8 @@
     "yup": "^0.32.9"
   },
   "scripts": {
+    "predeploy": "npm run build",
+   "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,7 +46,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      
       "not op_mini all"
     ],
     "development": [
