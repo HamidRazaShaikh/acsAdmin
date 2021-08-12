@@ -15,14 +15,14 @@ export default function Updatemail(props) {
   const handleSubmit = (e) => {
    
     e.preventDefault();
-    //seterrors(validationemail(values));    
+    seterrors(validationemail(values));    
     Updateemail()
    
   };
 
   const handleChange = (e) => {
     e.persist();
-    seterrors(validationemail(values));
+    //seterrors(validationemail(values));
     setvalues({
       ...values,
       [e.target.name]: e.target.value,
@@ -76,7 +76,7 @@ export default function Updatemail(props) {
                     </Form.Label>
                     <Form.Control
                       type="email"
-                      name="newemail"
+                      name="mail"
                       placeholder={organization.email}
                       readOnly
                     />

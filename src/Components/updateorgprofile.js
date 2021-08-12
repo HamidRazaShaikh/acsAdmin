@@ -114,10 +114,12 @@ export default function UpdateOrgProfile() {
                   <Form.Control
                     type="Text"
                     name="orgname"
+                    //defaultValue={organization.organization_name}
                     value={values.orgname}
                     onChange={handleChange}
                     placeholder={organization.organization_name}
-                    required
+                    
+                    
                   />
                 </Form.Group>
               </Col>

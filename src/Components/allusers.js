@@ -6,16 +6,19 @@ import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import { useHistory} from "react-router-dom";
+import ReactLoading from 'react-loading';
 
 function AllUsers() {
   const [searchTerm, setsearchTerm] = useState("");
   const [medicals, setmedicals] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const history = useHistory();
+  const [done, setdone] = useState(undefined)
 
   const loadLocations = async () => {
     const response = await axios.get(`/v1/fe/root/usr/users/offset/0`);
     setmedicals(response.data.payload.users);
+    setdone(true)
   };
 
   useEffect(() => {
@@ -29,7 +32,7 @@ function AllUsers() {
 
   const usersPerPage = 10;
   const pagesVisited = pageNumber * usersPerPage;
-
+ 
   const displayUsers = medicals
     .slice(pagesVisited, pagesVisited + usersPerPage)
     .filter((location) => {
@@ -197,7 +200,7 @@ function AllUsers() {
               </tr>
 
              
-              {displayUsers}
+              {!done ? <ReactLoading type={"bubbles"} color={"grey"} height={120} width={320} className="loader" /> : displayUsers}
 
               <div>
                 <ReactPaginate
