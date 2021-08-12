@@ -1,0 +1,383 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  height: 100vh;
+}
+.imag{
+  width:60%;
+  margin-left: -22%;
+}
+.logo {
+  width: 70px;
+  margin-left: 5%;
+}
+.btn1 {
+  padding: 10px 50px;
+  background: #00AEEF;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+
+.sc-dlnjwi:active {
+  background: #00AEEF;
+}
+.btnx1 {
+  padding: 8px 40px;
+  background: #00AEEF;
+  color: white;
+  border-radius: 5px;
+  justify-content: center;
+  border: 1px solid #00AEEF;
+  font-weight: 700;
+  margin-right: 20px;
+}
+.btn01 {
+  padding: 10px 50px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  margin-left: 10px;
+  font-weight: 700;
+}
+.btn1:hover {
+  background: #038ec0;
+  color: black;
+}
+.btn2 {
+  padding: 8px 50px;
+  background: white;
+  color: grey;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-left: 10px;
+  font-weight: 700;
+}
+@media only screen and (max-width: 545px) {
+  .btn2{
+    margin-left: 1px;
+    margin-top: 10px;
+  }
+  
+}
+.clr{
+  color: grey;
+}
+.clr:hover{
+  text-decoration: none;
+}
+.btnx2 {
+  padding: 8px 40px;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  justify-content: center;
+  border: 1px solid black;
+  font-weight: 700;
+  margin-right: 120px;
+  
+}
+.btn02 {
+  padding: 10px 50px;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-left: 10px;
+  font-weight: 500;
+}
+.btn2:hover {
+  background: #1cbbf5;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+}
+
+.btn3 {
+  padding: 10px 50px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  margin-right: 2%;
+  font-weight: 700;
+}
+.btn4 {
+  padding: 10px 50px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  margin-right: 2%;
+  font-weight: 700;
+}
+.btn5 {
+  padding: 10px 50px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  margin-right: 2%;
+  font-weight: 700;
+}
+.btn6 {
+  padding: 10px 50px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  margin-right: 2%;
+  font-weight: 700;
+}
+.btn7 {
+  padding: 10px 50px;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  margin-right: 2%;
+  font-weight: 700;
+}
+.mainbody {
+  height: 100vh;
+}
+/* FOR ALL USERS */
+.page3 {
+  padding-left: 8%;
+  padding-top: 5%;
+}
+.UserID {
+  border-radius: 10px;
+  margin: 0 7%;
+}
+.SearchBox {
+  background: #f4f5f7;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 0;
+  outline: none !important;
+  width: 70%;
+}
+.error{
+  color: red;
+  font-size: small;
+}
+.fp{
+  margin-left: 50%;
+  margin-top: 0px;
+}
+
+@media only screen and (width: 320px) {
+  .fp{
+    margin-left: 7%;
+    margin-top: 10px;
+    display: inline-block;    
+    vertical-align: middle;
+  }
+  .pic{
+    display: none;
+
+}
+}
+
+@media only screen and (max-width: 414px) {
+  .fp{
+    margin-left: 7%;
+    margin-top: 10px;
+    display: inline-block;
+    
+  }
+  .pic{
+    display: none;
+}
+
+}
+.baton{
+  margin-top: 20px;
+  padding-bottom: 100px;
+}
+@media only screen and (width: 375px) {
+  
+.baton{
+  display: inline;
+}
+ 
+}
+@media only screen and (max-width: 375px) {
+  .fp{
+    margin-left: 7%;
+    margin-top: 10px;
+    display: inline-block;    
+  }
+  .pic{
+    display: none;
+}
+.baton{
+  display: inline-block;
+}
+ 
+}
+@media only screen and (width: 1024px) {
+  .fp{
+    margin-left: 27%;
+    margin-top: 10px;
+    display: inline-block;
+    
+  }
+  
+}
+
+@media only screen and (width: 768px) {
+  .fp{
+    margin-left: 7%;
+    margin-top: 10px;
+    display: inline-block;
+    
+  }
+  
+}
+@media only screen and (width: 540px) {
+  .fp{
+    margin-left: 10%;
+    
+    display: inline-block;
+    
+  }
+  .btn2{
+    margin-top: 10%;
+  }
+  
+}
+.SearchBox{
+  background-color: hsl(0, 0%, 91%);
+  padding: 5px;
+  color: grey;
+}
+
+.UserID1 {
+  border-radius: 10px;
+  margin: 7%;
+  width:50%
+  
+}
+@media only screen and (max-width: 400px) {
+ 
+  .UserID1 {
+   width:100%;
+  margin: auto;
+  padding-right: 20px;
+  
+  }
+  .upbton{
+    flex-direction: column;
+  }
+}
+.dialog{
+  
+  width: 550px;
+  height: 220px;
+}
+.btnz{
+  padding-bottom: 50px;
+}
+.dt{
+  border-radius: 50%;
+}
+.drpdown{
+  padding-right: 430px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  color: grey;
+  /* box-shadow:  3px 5px 3px 3px rgb(216, 216, 216); */
+}
+.drpdowno{
+  padding-right: 100px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  color: grey;
+  display: inline-block;
+  /* box-shadow:  3px 5px 3px 3px rgb(216, 216, 216); */
+}
+.idnone{
+  display: none;
+}
+
+.paginationBttns {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: right;
+  
+ 
+  
+}
+
+.paginationBttns a {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 8px;
+ 
+  color: grey;
+  cursor: pointer;
+  
+  
+}
+.bar:active{
+  background-color: indigo;
+}
+
+.paginationBttns a:hover {
+  color: #00AEEF;
+  /* background-color: #00AEEF; */
+  border-radius: 80px;
+  border: 1px solid grey;
+  text-decoration: none;
+}
+
+.paginationActive a {
+  
+  border-radius: 90%;
+  border: 1px solid #00AEEF;
+  color: white;
+  /* background-color: #00AEEF; */
+}
+
+.paginationDisabled a {
+  color:white;
+  background-color: grey;
+  text-decoration: none;
+  display: none;
+}
+.db{
+  color: #00AEEF;
+}
+.btnx1 {
+  padding: 10px 50px;
+  background: rgba(10, 219, 10, 0.671);
+  color: white;
+  border-radius: 5px;
+  border: none !important;
+  font-weight: 700;
+  margin-bottom: 1px;
+}

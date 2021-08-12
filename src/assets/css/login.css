@@ -1,0 +1,110 @@
+/* PROJECT CSS */
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.imag {
+  padding-left: 38%;
+  padding-top: 12%;
+}
+.alignment h2 {
+  padding-top: 15%;
+  padding-left: 10%;
+}
+.control-form {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.form-control {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid gray;
+}
+.input-feild {
+  border-radius: 50px;
+  padding: 10px 20px;
+  border: none !important;
+  margin: 0% 25%;
+  outline: none !important;
+}
+/* FOR SIDE-BAR */
+#sidebar {
+  z-index: 999;
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  overflow-y: auto;
+  background: #151b26;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  /* text-transform: uppercase; */
+}
+#sidebar .sidebar-header a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 3px;
+  padding: 5px 0px;
+}
+#sidebar .sidebar-header {
+  background-color: #fff;
+  text-align: center;
+  padding: 10px 0px;
+}
+#sidebar ul li a {
+  padding: 15px 10px;
+  font-size: 17px;
+  display: block;
+  color: #fff;
+  border-bottom: 1px solid #939fa5;
+  text-decoration: none;
+  transition: 0.4s;
+  border: none;
+}
+.active {
+  background-color: #00aeef;
+}
+#sidebar ul li a:hover {
+  color: #fff;
+  background: #3b4049;
+}
+#sidebar ul ul a {
+  font-size: 16px !important;
+  padding-left: 30px !important;
+  background: #263238;
+  border: none;
+}
+a.dropdown-toggle.collapsed.dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  vertical-align: 5px;
+  content: "";
+  border-bottom: 5px solid;
+  border-right: 5px solid transparent;
+  border-top: 0;
+  margin-top: 10px;
+}
+#sidebar .dropdown-toggle::after {
+  float: right;
+  margin-top: 10px;
+}
+#sidebar .icon {
+  padding-right: 15px;
+}
+/* top Navbar */
