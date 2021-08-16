@@ -5,6 +5,8 @@ import axios from 'axios'
 import { Link } from "react-router-dom";
 import { Table } from 'react-bootstrap'
 import ReactPaginate from "react-paginate";
+import ReactLoading from "react-loading";
+
 
 
 function AllMedicalProcedure() {
@@ -12,12 +14,16 @@ function AllMedicalProcedure() {
   const [searchTerm, setsearchTerm] = useState("");
   const [departments, setdepartments] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
+  const [done, setdone] = useState(undefined);
+
 
     const loadLocations = async () => {
         const response = await axios.get(
           `/v1/fe/root/org/department/all`
         );
         setdepartments(response.data.payload.departments);
+        setdone(true);
+
       };
     
       useEffect(() => {
@@ -137,7 +143,18 @@ function AllMedicalProcedure() {
                     onChange={(e) => setsearchTerm(e.target.value)} /></td>
                             </tr>
 
-                            {displayUsers}
+                            {!done ? (
+                <ReactLoading
+                  type={"bubbles"}
+                  color={"grey"}
+                  height={120}
+                  width={320}
+                  className="loader"
+                />
+              ) : (
+                displayUsers
+              )}
+                            
 
               <div>
                 <ReactPaginate

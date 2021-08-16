@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './Components/FontawsomeIcons'
 import Login from "./Components/Login";
 import './assets/css/login.css';
 import User1 from './Components/User1';

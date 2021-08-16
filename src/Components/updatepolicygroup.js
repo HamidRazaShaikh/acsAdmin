@@ -148,7 +148,7 @@ export default function PolicyGroup() {
                          
                           value={values.department}
                           
-                          onChange={handleChange}
+                         
                         />
                         {/* <select
                                 name="deptId"
@@ -181,7 +181,7 @@ export default function PolicyGroup() {
                           // placeholder={location.group_id}
                           defaultValue={location.group_id}
                           value={values.groupid}
-                          onChange={handleChange}
+                          
                          
                         />
                       </Form.Group>
@@ -236,9 +236,98 @@ export default function PolicyGroup() {
               </button>
             </div>
           </Form>
+
+          {/* /////////////////////////// ALL LIMIT SECTION */}
+
+      <div>
+       
+    
+        
+       <div className="mainbody bg-light">
+          
+           <div className="container contact py-5 d-flex justify-content-between">
+                   <div className="font-weight-bold h5">All Limits</div>
+                   <div className="">
+                       
+                       <Button className="btn btn-primary px-3 py-1" onClick={() => setOpenPopupx(true)}>+New</Button>
+                   </div>
+                   
+               </div>
+           
+           <div className="container UserID bg-white mt-3 pt-3">
+               <Container className=" shadow ">
+                   <Form>
+                       <div className="scrol">
+                           {/* FOR USER ID */}
+                           <Row  >
+                               <Col>
+                                   <p className="font-weight-bold ">Resource ID</p>
+                                   
+                               </Col>
+                               <Col>
+                                   <p className="font-weight-bold ">Permission</p>
+                                   
+                               </Col>
+                               
+                               
+                               <Col>
+                                   <p className="font-weight-bold ">Action</p>
+                               </Col>
+                           </Row>
+                       </div>
+                       <hr />
+                      
+                     
+                       {/* FOR USER DATA-1 */}
+                       
+                       
+                       {/* FOR USER DATA-2 */}
+                       {data.map((policy) => {
+                         return(
+                           <div className="">
+                           <Row >
+                               <Col>
+                                       <p className="">{policy.service_id}</p>
+                                   </Col>
+                                   <Col>
+                                       <p className="ml-3">{policy.permission_type}</p>
+                                   </Col>
+                                  
+                                   <Col>
+                                       <div className="d-flex justify-content-between">
+                                           {/* <button className="btn btn-primary px-4 py-1 ">View</button> */}
+                                           <Button className="btn btn-primary px-3 py-1 "  >Delete</Button>
+                                           
+                                       </div>
+                                   </Col>
+                               </Row>
+                           </div>
+                         )
+                       })}
+                       
+                       <hr />
+                       {/* FOR USER DATA-3 */}
+                       
+                       {/* <div className="D-flex my-3">
+                           <div className=" showing py-3">
+                               <small>Showing 1 - 7 of 25 enteries</small>
+                           </div> */}
+                          
+                       {/* </div> */}
+                   </Form>
+               </Container>
+
+
+
+           </div>
+
+       </div >
+       </div>
         </Container>
       </div>
-      {/* /////////////////////////// ALL LIMIT SECTION */}
+      
+
+      {/* /////////////// */}
      
       <PopupResource
         title="Add Resource"

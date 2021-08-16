@@ -384,3 +384,10 @@ code {
 .loader{
   margin-left: 300px;
 }
+.password-toogle-icon {
+  position: relative;
+  cursor: pointer;
+  float: right;
+  top: -30px;
+  right: 20px;
+}

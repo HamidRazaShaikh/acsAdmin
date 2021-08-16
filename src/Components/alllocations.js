@@ -5,16 +5,21 @@ import Sidebar from "./Sidebar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import ReactLoading from "react-loading";
 
 function AllLocations() {
   //const [page, setpage] = useState(1);
   const [searchTerm, setsearchTerm] = useState("");
   const [locations, setlocations] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
+  const [done, setdone] = useState(undefined);
+
 
   const loadLocations = async () => {
     const response = await axios.get(`/v1/fe/root/org/location/all`);
     setlocations(response.data.payload.locations);
+    setdone(true);
+
   };
 
   useEffect(() => {
@@ -24,63 +29,7 @@ function AllLocations() {
   const usersPerPage = 10;
   const pagesVisited = pageNumber * usersPerPage;
 
-  // const displayUsers = locations
-  //   .slice(pagesVisited, pagesVisited + usersPerPage)
-  //   .filter((location) => {
-  //     if (searchTerm === "") {
-  //       return locations;
-  //     } else if (
-  //       location.email.toLowerCase().includes(searchTerm.toLowerCase())
-  //     ) {
-  //       return locations;
-  //     } else if (
-  //       location.address.toLowerCase().includes(searchTerm.toLowerCase())
-  //     ) {
-  //       return locations;
-  //     } else if (
-  //       location.city.toLowerCase().includes(searchTerm.toLowerCase())
-  //     ) {
-  //       return locations;
-  //     }
-  //     // else if(location.zip_code.includes(searchTerm))
-  //     // {
-  //     //     return locations
-  //     // }
-  //     else if (
-  //       location.state.toLowerCase().includes(searchTerm.toLowerCase())
-  //     ) {
-  //       return locations;
-  //     }
-  //   })
-  //   .map((location, index) => {
-  //     return (
-  //       <div className="" >
-  //       <tr  >
-  //         <td>{location.email}</td>
-  //         <td className="w-50">{location.address}</td>
-  //         <td>{location.city}</td>
-  //         <td className="w-25">{location.zip_code}</td>
-  //         <td>{location.state}</td>
-  //         <td>
-  //           <Link
-  //             class="btn btn-primary px-4 py-1 "
-  //             to={`/locationprofileupdate/${location.id}`}
-  //           >
-  //             View
-  //           </Link>
-  //         </td>
-  //         <td>
-  //           <Link
-  //             class="btn btn-warning px-4 py-1 "
-  //             to={`/locationprofileupdate/${location.id}`}
-  //           >
-  //             Edit
-  //           </Link>
-  //         </td>
-  //       </tr>
-  //       </div>
-  //     );
-  //   });
+  
     
     const displayUsers = locations
     .slice(pagesVisited, pagesVisited + usersPerPage)
@@ -222,7 +171,19 @@ function AllLocations() {
                 </td>
               </tr>
 
-              {displayUsers}
+              {!done ? (
+                <ReactLoading
+                  type={"bubbles"}
+                  color={"grey"}
+                  height={120}
+                  width={320}
+                  className="loader"
+                />
+              ) : (
+                displayUsers
+              )}
+
+              
 
               <div>
                 <ReactPaginate

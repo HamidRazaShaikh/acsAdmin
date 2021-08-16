@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import { useHistory, useParams } from "react-router-dom";
 import Notification from "./message";
 import axios from "axios";
+import { IoIosReturnLeft } from "react-icons/io";
 
 
 
@@ -16,6 +17,7 @@ export default function UserPolicy(props) {
   const { id } = useParams();
   const [group, setgroup] = useState([]);
   const [policy, setpolicy] = useState([]);
+  const [policyg, setpolicyg] = useState([]);
 
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -37,10 +39,16 @@ export default function UserPolicy(props) {
     
   };
 
-  const loadPolicy = async () => {
+  // const loadPolicy = async () => {
+  //   const response = await axios.get(`/v1/fe/root/plsv/role/userid/${id}`);
+
+  //   setpolicy(response.data.payload.policies.policies);
+    
+  // };
+  const loadPolicyg = async () => {
     const response = await axios.get(`/v1/fe/root/plsv/role/userid/${id}`);
 
-    setpolicy(response.data.payload.policies);
+    setpolicyg(response.data.payload.policies);
     
   };
 
@@ -48,7 +56,8 @@ export default function UserPolicy(props) {
   useEffect(() => {
     loadMedData();
     loadGroup()
-    loadPolicy()
+    // loadPolicy()
+    loadPolicyg()
   }, []);
 
   const handleChange = (e) => {
@@ -66,7 +75,7 @@ export default function UserPolicy(props) {
   /////////////////////////////
   const UpdateMedical = () => {
     axios
-      .put(`/v1/fe/root/usr/user/account/access`, {
+      .post(`/v1/fe/root/plsv/user`, {
         userId : id,
     groupUUID: values.groupId
       })
@@ -93,7 +102,17 @@ export default function UserPolicy(props) {
 
     UpdateMedical();
   };
-
+// const done = 
+//   policy.map((hi) => {
+//     return(
+// <div>
+//     <h1>{hi.policy_service_id}</h1>
+//     <h1>{hi.policy_service_id}</h1>
+//   </div>
+//     )
+    
+//   })
+   
   const dot = medData
     .filter((meds) => {
       return id == meds.ua_user_id;
@@ -105,10 +124,10 @@ export default function UserPolicy(props) {
                     <div className="font-weight-bold h5">User ID: {id}</div>
                 </div>
                 <div className="contact pt-3 d-flex justify-content-between">
-                <div className="font-weight-bold h5">Group: Developer</div>
+                <div className="font-weight-bold h5">Group: {policyg.group.group_name}</div>
                 </div>
                 <div className="contact pt-3 pb-3 d-flex justify-content-between">
-                <div className="font-weight-bold h5">Group Description: Dev ER</div>
+                <div className="font-weight-bold h5">Group Description: {policyg.group.group_description}</div>
                 </div>
                 {/* for Input Feild */}
                     <Form onSubmit={handleSubmit}>
@@ -141,6 +160,31 @@ export default function UserPolicy(props) {
                             <button className="btn2" onClick={handlecancel}> Cancel</button>
                         </div>
                     </Form>
+                    <div>
+                      {policyg.policies.map((pol) =>
+                      {
+return(
+  <div >
+  <Row xs="2" sm="2" md="2" lg="2">
+          
+          <Col>
+              <p className="ml-2 font-weight-bolder">Resource ID</p>
+              <p className="ml-2 ">{pol.policy_service_id}</p>
+              
+
+          </Col>
+          <Col className="scrol">
+              <p className="ml-2 font-weight-bolder ">Permission</p>
+              <p className="ml-2 ">{pol.policy_permission_type}</p>
+             
+          </Col>
+          
+      </Row>
+  </div>
+)
+                      })}
+ 
+                            </div> 
         </div>
       );
     });
@@ -214,34 +258,19 @@ export default function UserPolicy(props) {
                 <Container>
                 
                    {dot}
+                   {/* {done} */}
                     
                 </Container>
                 <div className=" UserID1 bg-white mt-3  pt-3  ">
                 <Container className="shadow pb-5">
                     
-                        
+               
                         
                         {/* FOR USER DATA-1 */}
                         
                                
                         
-                        <div >
-                        <Row xs="2" sm="2" md="2" lg="2">
-                                
-                                <Col>
-                                    <p className="ml-2 font-weight-bolder">Resource ID</p>
-                                    <p className="ml-2 ">MED-CHAR-LOG</p>
-                                    <p className="ml-2 ">MED-CHAR-HR</p>
-
-                                </Col>
-                                <Col className="scrol">
-                                    <p className="ml-2 font-weight-bolder ">Permission</p>
-                                    <p className="ml-2 ">Read</p>
-                                    <p className="ml-2 ">Write</p>
-                                </Col>
-                                
-                            </Row>
-                        </div>
+                      
                         <hr />
                        
                        
