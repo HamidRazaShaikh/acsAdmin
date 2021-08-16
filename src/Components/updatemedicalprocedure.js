@@ -9,9 +9,7 @@ function UpdateMedicalProcedure(props) {
   const [medicals, setmedicals] = useState([]);
   const [medData, setmedData] = useState([]);
   const [values, setvalues] = useState({});
-  // const [errors, seterrors] = useState({});
-  // const [organization, setorganization] = useState("");
-  // const [data, setdata] = useState("");
+  const [dept_id, setdept_id] = useState("");
   const history = useHistory();
   const { id } = useParams();
   const [notify, setNotify] = useState({
@@ -22,10 +20,16 @@ function UpdateMedicalProcedure(props) {
 
   const loadMedData = async () => {
     const response = await axios.get(`/v1/fe/root/org/medical/all`);
-    
-
     setmedData(response.data.payload.procedures);
-    console.log(id)
+    console.log(id);
+    response.data.payload.procedures
+      .filter((meds) => {
+        return id == meds.medical_procedure_id;
+      })
+      .map((med) => {
+        setdept_id(med.department_profile_id);
+        console.log(med.department_profile_id);
+      });
   };
 
   const loadDepartments = async () => {
@@ -55,7 +59,7 @@ function UpdateMedicalProcedure(props) {
     axios
       .put(`/v1/fe/root/org/procedure`, {
         id: id,
-        departmentId: values.deptid,
+        departmentId: dept_id,
         label: values.label,
         name: values.name,
         description: values.description,
@@ -98,49 +102,21 @@ function UpdateMedicalProcedure(props) {
             {/* FOR USER DATA-1 */}
 
             <Row xs="1" sm="2" md="3" lg="2">
-              <Col className="w-100">
-                {" "}
-                <h2>
-                  Existing Department:{" "}
-                  <span className="text-primary">
-                    {meds.department_profile_name}
-                  </span>
-                </h2>
-                {/* <h4 className="text"> {organization.location_profile_id} {organization.location_profile_city}
-                   <br /></h4> */}
-                <br />
-              </Col>
-            </Row>
-
-            <Row xs="1" sm="2" md="3" lg="2">
               <Col>
                 <Form.Group className="mb-4" controlId="#">
                   <Form.Label>
                     <small className="text">Department</small>
                   </Form.Label>
 
-                  {/* <Form.Control
+                  <Form.Control
                     type="Text"
                     name="location"
-                    placeholder="location"
-                    value={values.location}
-                    onChange={handleChange}
-                    required
-                  /> */}
+                    placeholder={meds.department_profile_name}
+                    // value={values.location}
+                    // onChange={handleChange}
+                    readOnly
+                  />
 
-                  <select
-                    name="deptid"
-                    value={values.deptid}
-                    onChange={handleChange}
-                    className="shadow drpdown"
-                  >
-                    {medicals.map((location, index) => (
-                      <option value={location.department_profile_id}>
-                        {location.department_profile_name}{" "}
-                        {location.department_profile_id}
-                      </option>
-                    ))}
-                  </select>
                   <br />
                 </Form.Group>
                 {/* {errors.location && <p className="error">{errors.location}</p>} */}
@@ -150,7 +126,7 @@ function UpdateMedicalProcedure(props) {
             </Row>
 
             <Row xs="1" sm="2" md="3" lg="2">
-            <Col className="d-none">
+              <Col className="d-none">
                 {" "}
                 <Form.Group className="mb-4" controlId="#">
                   <Form.Label>
@@ -162,7 +138,6 @@ function UpdateMedicalProcedure(props) {
                     placeholder={meds.medical_procedure_id}
                     value={values.medid}
                     onChange={handleChange}
-                    
                   />
                 </Form.Group>
                 {/* {errors.name && <p className="error">{errors.name}</p>} */}

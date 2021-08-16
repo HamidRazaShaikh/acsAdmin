@@ -7,15 +7,18 @@ import AddResourcelimit from "./addresourcelimit";
 import PopupResource from "./popupresource";
 import Notification from "./message";
 
+
 export default function PolicyGroup() {
   const [depatrments, setdepartments] = useState([]);
   const [values, setvalues] = useState({});
   const [errors, seterrors] = useState({});
-  const [ids, setids] = useState("")
+  const [ids, setids] = useState("");
   const [data, setdata] = useState([]);
   const history = useHistory();
   const { id } = useParams();
- 
+  const [group_id, setgroup_id] = useState("")
+  const [dept_id, setdept_id] = useState("")
+
   const [medicals, setmedicals] = useState([]);
 
   const [openPopupx, setOpenPopupx] = useState(false);
@@ -32,11 +35,14 @@ export default function PolicyGroup() {
 
   const loadgroup = async () => {
     const response = await axios.get(`/v1/fe/root/plsv/group/policy/${id}`);
-    console.log(id);
+    
     setmedicals(response.data.payload.groups);
+    response.data.payload.groups.map(med => {
+      console.log(med);
+      setgroup_id(med.group_id)
+      setdept_id(med.group_department_id)
+    })
   };
-
-  
 
   const getResource = () => {
     axios
@@ -56,6 +62,9 @@ export default function PolicyGroup() {
     getResource();
   }, []);
 
+ 
+  
+
   const handleChange = (e) => {
     e.persist();
     //seterrors(validationLocationProfile(values));
@@ -71,11 +80,13 @@ export default function PolicyGroup() {
 
   ///////////////////PUT Method///////////////////////////////
 
+
   const PutPolicyGroup = () => {
+    console.log(values)
     axios
       .put(`/v1/fe/root/plsv/group`, {
-        departmentId: values.department,
-        id: values.groupid,
+        departmentId: dept_id,
+        id: group_id,
         name: values.name,
         description: values.description,
         uuid: id,
@@ -121,18 +132,12 @@ export default function PolicyGroup() {
 
         <Container>
           <Form onSubmit={handleSubmit}>
-            
             {/* ////////////////////////// */}
 
             {medicals.map((location) => {
-               
               return (
                 <div>
-                 
-               
-
                   <br />
-                  
 
                   <Row xs="1" sm="2" md="3" lg="2" >
                     <Col>
@@ -144,31 +149,16 @@ export default function PolicyGroup() {
                         <Form.Control
                           type="Text"
                           name="department"
-                          defaultValue={location.group_department_id}
-                         
-                          value={values.department}
+                          defaultValue={location.department.department_profile_name}
                           
-                         
+                          readOnly
                         />
-                        {/* <select
-                                name="deptId"
-                                value={values.deptId}
-                                onChange={handleChange}
-                                className="shadow drpdown"
-                                
-                              >
-                                {depatrments.map((location, index) => (
-                                  <option value={location.department_profile_id}>
-                                    {location.department_profile_name}{" "}
-                                    {location.department_profile_id}
-                                  </option>
-                                ))}
-                              </select> */}
+
                         <br />
                       </Form.Group>
                     </Col>
                   </Row>
-                  <Row xs="1" sm="2" md="3" lg="2">
+                  {/* <Row xs="1" sm="2" md="3" lg="2">
                     <Col className="">
                       {" "}
                       <Form.Group className="mb-4" controlId="#">
@@ -181,12 +171,11 @@ export default function PolicyGroup() {
                           // placeholder={location.group_id}
                           defaultValue={location.group_id}
                           value={values.groupid}
-                          
-                         
+                          //onChange={handleChange}
                         />
                       </Form.Group>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row xs="1" sm="2" md="3" lg="2">
                     <Col>
                       {" "}
@@ -236,99 +225,78 @@ export default function PolicyGroup() {
               </button>
             </div>
           </Form>
-
-          {/* /////////////////////////// ALL LIMIT SECTION */}
-
-      <div>
-       
-    
-        
-       <div className="mainbody bg-light">
-          
-           <div className="container contact py-5 d-flex justify-content-between">
-                   <div className="font-weight-bold h5">All Limits</div>
-                   <div className="">
-                       
-                       <Button className="btn btn-primary px-3 py-1" onClick={() => setOpenPopupx(true)}>+New</Button>
-                   </div>
-                   
-               </div>
-           
-           <div className="container UserID bg-white mt-3 pt-3">
-               <Container className=" shadow ">
-                   <Form>
-                       <div className="scrol">
-                           {/* FOR USER ID */}
-                           <Row  >
-                               <Col>
-                                   <p className="font-weight-bold ">Resource ID</p>
-                                   
-                               </Col>
-                               <Col>
-                                   <p className="font-weight-bold ">Permission</p>
-                                   
-                               </Col>
-                               
-                               
-                               <Col>
-                                   <p className="font-weight-bold ">Action</p>
-                               </Col>
-                           </Row>
-                       </div>
-                       <hr />
-                      
-                     
-                       {/* FOR USER DATA-1 */}
-                       
-                       
-                       {/* FOR USER DATA-2 */}
-                       {data.map((policy) => {
-                         return(
-                           <div className="">
-                           <Row >
-                               <Col>
-                                       <p className="">{policy.service_id}</p>
-                                   </Col>
-                                   <Col>
-                                       <p className="ml-3">{policy.permission_type}</p>
-                                   </Col>
-                                  
-                                   <Col>
-                                       <div className="d-flex justify-content-between">
-                                           {/* <button className="btn btn-primary px-4 py-1 ">View</button> */}
-                                           <Button className="btn btn-primary px-3 py-1 "  >Delete</Button>
-                                           
-                                       </div>
-                                   </Col>
-                               </Row>
-                           </div>
-                         )
-                       })}
-                       
-                       <hr />
-                       {/* FOR USER DATA-3 */}
-                       
-                       {/* <div className="D-flex my-3">
-                           <div className=" showing py-3">
-                               <small>Showing 1 - 7 of 25 enteries</small>
-                           </div> */}
-                          
-                       {/* </div> */}
-                   </Form>
-               </Container>
-
-
-
-           </div>
-
-       </div >
-       </div>
         </Container>
+        {/* /////////////////////////// ALL LIMIT SECTION */}
+
+        <div>
+          <div className="mainbody bg-light">
+            <div className="container contact py-5 d-flex justify-content-between">
+              <div className="font-weight-bold h5">All Limits</div>
+              <div className="">
+                <Button
+                  className="btn btn-primary px-3 py-1"
+                  onClick={() => setOpenPopupx(true)}
+                >
+                  +New
+                </Button>
+              </div>
+            </div>
+
+            <div className="container UserID bg-white mt-3 pt-3">
+              <Container className=" shadow ">
+                <Form>
+                  <div className="scrol">
+                    {/* FOR USER ID */}
+                    <Row>
+                      <Col>
+                        <p className="font-weight-bold ">Resource ID</p>
+                      </Col>
+                      <Col>
+                        <p className="font-weight-bold ">Permission</p>
+                      </Col>
+
+                      <Col>
+                        <p className="font-weight-bold ">Action</p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <hr />
+
+                  {/* FOR USER DATA */}
+
+                  {data.length > 0 ? data.map((policy) => {
+    return (
+      <div className="">
+        <Row>
+          <Col>
+            <p className="">{policy.service_id}</p>
+          </Col>
+          <Col>
+            <p className="ml-3">{policy.permission_type}</p>
+          </Col>
+
+          <Col>
+            <div className="d-flex justify-content-between">
+              {/* <button className="btn btn-primary px-4 py-1 ">View</button> */}
+              <Button className="btn btn-primary px-3 py-1 ">Delete</Button>
+            </div>
+          </Col>
+        </Row>
       </div>
-      
+    );
+  })
+   : null}
+
+                  <hr />
+                </Form>
+              </Container>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* /////////////// */}
-     
+
       <PopupResource
         title="Add Resource"
         openPopupx={openPopupx}

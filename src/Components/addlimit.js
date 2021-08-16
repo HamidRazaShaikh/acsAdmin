@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
-import { RiAlertFill } from "react-icons/ri";
+import Notification from "./message";
 
 function Addlimit() {
   const [locations, setlocations] = useState([]);
@@ -14,6 +14,11 @@ function Addlimit() {
   const [data, setdata] = useState("");
   const history = useHistory();
   const { id } = useParams();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const handleChange = (e) => {
     setvalues({
@@ -37,23 +42,29 @@ function Addlimit() {
 
   const PostLimit = () => {
       axios
-      .pot(`/v1/fe/root/org/department`, {
-          id: organization.department_profile_id,
-          locationId: values.id,
-          label: values.label,
-          name: values.name,
-          description: values.description
+      .post(`/v1/fe/root/med/accesslimit`, {
+       serviceId: values.ids,
+        maxAllowed: values.limit
 
       })
       .then((response) => {
-        alert("Data Submited Succcessfully");
+       // alert("Data Submited Succcessfully");
+        setNotify({
+          isOpen: true,
+          message: "Data Submited Succcessfully",
+          type: "success",
+        });
         console.log(response.status);
         setdata(response.data);
         console.log(data)
         if (!data) return "No post!";
       })
       .catch((err) =>
-      {alert("Failed to Submit Location Profile")
+      {setNotify({
+        isOpen: true,
+        message: `Failed To Update${err}`,
+        type: "error",
+      });
   })
   }
 
@@ -68,7 +79,7 @@ function Addlimit() {
       
       <div className=" UserID bg-white  ">
       <Container>
-          <Form >
+          <Form onSubmit={handleSubmit}>
             <Row>
             <small className="text"> Resource ID</small>
             </Row>
@@ -88,8 +99,8 @@ function Addlimit() {
                     required
                   /> */}
                    <select
-                    name="id"
-                    value={values.id}
+                    name="ids"
+                    value={values.ids}
                     onChange={handleChange}
                     className="shadow drpdowno"
                   >
@@ -112,9 +123,9 @@ function Addlimit() {
                   </Form.Label>
                   <Form.Control
                     type="Text"
-                    name="description"
-                    placeholder="description"
-                    value={values.description}
+                    name="limit"
+                    placeholder="Limit"
+                    value={values.limit}
                     onChange={handleChange}
                     required
                   />
@@ -129,6 +140,7 @@ function Addlimit() {
           </Form>
         </Container>
       </div>
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

@@ -244,7 +244,7 @@ function AllMedicalProcedure() {
         </div>
       </div>
       <PopupDelete
-        title="dELETE pOLICYgROUP"
+        title="DELETE POLICYGROUP"
         openPopupd={openPopupd}
         setOpenPopupd={setOpenPopupd}
       >

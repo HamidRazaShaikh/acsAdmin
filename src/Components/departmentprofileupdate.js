@@ -13,6 +13,7 @@ function AllLocations() {
  const [data, setdata] = useState("");
   const history = useHistory()
   const { id } = useParams();
+  const [loc_id, setloc_id] = useState("");
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
 
 
@@ -25,6 +26,9 @@ function AllLocations() {
         const Alldata = response.data.payload.department;
 // console.log(Alldata)
         setorganization(Alldata);
+        console.log(Alldata.location_profile_id)
+
+        setloc_id(Alldata.location_profile_id)
       })
       .catch((error) => console.error(`Error: ${error}`));
   };
@@ -62,7 +66,7 @@ function AllLocations() {
         axios
         .put(`/v1/fe/root/org/department`, {
             id: organization.department_profile_id,
-            locationId: values.id,
+            locationId: loc_id,
             label: values.label,
             name: values.name,
             description: values.description
@@ -146,16 +150,17 @@ function AllLocations() {
                     <small className="text">Location</small>
                   </Form.Label>
 
-                  {/* <Form.Control
+                  <Form.Control
                     type="Text"
                     name="location"
-                    placeholder="location"
-                    value={values.location}
-                    onChange={handleChange}
-                    required
-                  /> */}
+                    placeholder={organization.location_profile_city}
+                    // value={values.location}
+                    // onChange={handleChange}
+                    // required
+                    readOnly
+                  />
                   
-                  <select name="id" value={values.id } onChange={handleChange} className="shadow drpdown">
+                  {/* <select name="id" value={values.id } onChange={handleChange} className="shadow drpdown">
                     {locations.map((location, index) => (
                       <option value={location.id}>
                          {" "}
@@ -163,7 +168,7 @@ function AllLocations() {
                         {location.id}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                   <br />
                  
                 </Form.Group>
