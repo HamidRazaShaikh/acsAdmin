@@ -113,7 +113,7 @@ function AllLocations() {
             <hr className="mb-5" />
             {/* FOR USER DATA-1 */}
 
-            <Row xs="1" sm="2" md="3" lg="2">
+            <Row xs="1" sm="2" md="3" lg="2" className="d-none">
             <Col className="d-none">
                 {" "}
                 <Form.Group className="mb-4" controlId="#">
