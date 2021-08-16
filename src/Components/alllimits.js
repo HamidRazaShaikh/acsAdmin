@@ -99,12 +99,7 @@ function AllLimits() {
                         <hr />
                         {/* FOR USER DATA-3 */}
                         
-                        <div className="D-flex my-3">
-                            <div className=" showing py-3">
-                                <small>Showing 1 - 7 of 25 enteries</small>
-                            </div>
-                           
-                        </div>
+                        
                     </Form>
                 </Container>
 
