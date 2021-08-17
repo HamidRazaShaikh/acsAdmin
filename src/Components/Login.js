@@ -5,7 +5,7 @@ import validation from "./validation";
 import { useHistory, Link } from "react-router-dom";
 import usePasswordToggle from "./usePasswordToggle";
 import Notification from "./message";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Login() {
   const [values, setvalues] = useState({});
@@ -45,22 +45,30 @@ export default function Login() {
       .then((res) => {
         // history.go(-1);
         if (res.status === 200) {
-            setNotify({
-                isOpen: true,
-                message: "Login Succcessfully",
-                type: "success",
-              });
+          setNotify({
+            isOpen: true,
+            message: "Login Succcessfully",
+            type: "success",
+          });
           history.push("/getEmail");
+        } else if (res.status !== 200) {
+          setNotify({
+            isOpen: true,
+            message: "Login Failed",
+            type: "error",
+          });
         }
-
         console.log(res.status);
       })
       .catch((err) => {
-        setNotify({
+        if (err) {
+          console.log(err);
+          setNotify({
             isOpen: true,
             message: `Failed To Login${err}`,
             type: "error",
           });
+        }
       });
   };
   return (
@@ -98,15 +106,22 @@ export default function Login() {
                 {errors.password && <p className="error">{errors.password}</p>}
                 <br />
                 <div className="d-flex justify-content-between my-3">
-                                    <div>
-                                        <input className="mr-1" type="checkbox" name="checkbox" id="box" />
-                                        <small>Remember&nbsp;me</small>
-                                    </div>
-                                    <div>
-                                        <Link className="text-danger text-decoration-none fp" to="#">
-                                            <small className="text-dark">Forget&nbsp;password?</small></Link><br />
-                                    </div>
-                                </div>
+                  <div>
+                    <input
+                      className="mr-1"
+                      type="checkbox"
+                      name="checkbox"
+                      id="box"
+                    />
+                    <small>Remember&nbsp;me</small>
+                  </div>
+                  <div>
+                    <Link className="text-danger text-decoration-none " to="#">
+                      <small className="text-dark">Forget&nbsp;password?</small>
+                    </Link>
+                    <br />
+                  </div>
+                </div>
 
                 {/* button */}
                 <input
@@ -130,7 +145,7 @@ export default function Login() {
         </div>
         {/* right section */}
         <div className="col-md-6 col-sm-12 pic">
-          <img className=" cover-img w-100" src={cover} alt="" />
+          <img className=" cover-img w-100 h-100" src={cover} alt="" />
         </div>
         {/* for row */}
       </div>

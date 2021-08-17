@@ -7,7 +7,6 @@ import AddResourcelimit from "./addresourcelimit";
 import PopupResource from "./popupresource";
 import Notification from "./message";
 
-
 export default function PolicyGroup() {
   const [depatrments, setdepartments] = useState([]);
   const [values, setvalues] = useState({});
@@ -16,9 +15,12 @@ export default function PolicyGroup() {
   const [data, setdata] = useState([]);
   const history = useHistory();
   const { id } = useParams();
-  const [group_id, setgroup_id] = useState("")
-  const [dept_id, setdept_id] = useState("")
+  const [group_id, setgroup_id] = useState("");
+  const [dept_id, setdept_id] = useState("");
+  const [policy_id, setpolicy_id] = useState("");
 
+  const [type, settype] = useState("");
+  const [service_id, setservice_id] = useState("");
   const [medicals, setmedicals] = useState([]);
 
   const [openPopupx, setOpenPopupx] = useState(false);
@@ -35,13 +37,16 @@ export default function PolicyGroup() {
 
   const loadgroup = async () => {
     const response = await axios.get(`/v1/fe/root/plsv/group/policy/${id}`);
-    
+
     setmedicals(response.data.payload.groups);
-    response.data.payload.groups.map(med => {
+    response.data.payload.groups.map((med) => {
       console.log(med);
-      setgroup_id(med.group_id)
-      setdept_id(med.group_department_id)
-    })
+      setgroup_id(med.group_id);
+      setdept_id(med.group_department_id);
+      setpolicy_id(med.policy_id);
+      settype(med.policy_permission_type);
+      setservice_id(med.policy_service_id);
+    });
   };
 
   const getResource = () => {
@@ -62,9 +67,6 @@ export default function PolicyGroup() {
     getResource();
   }, []);
 
- 
-  
-
   const handleChange = (e) => {
     e.persist();
     //seterrors(validationLocationProfile(values));
@@ -80,9 +82,8 @@ export default function PolicyGroup() {
 
   ///////////////////PUT Method///////////////////////////////
 
-
   const PutPolicyGroup = () => {
-    console.log(values)
+    console.log(values);
     axios
       .put(`/v1/fe/root/plsv/group`, {
         departmentId: dept_id,
@@ -112,6 +113,43 @@ export default function PolicyGroup() {
       });
   };
 
+  const deletePolicy = () => {
+    // setConfirmDialog({
+    //   ...confirmDialog,
+    //   isOpen: false,
+    // });
+    axios
+      .put("/v1/fe/root/plsv/policy/delete", {
+        id: policy_id,
+        groupUUID: id,
+        serviceId: service_id,
+        permissionType: type,
+      })
+      .then((response) => {
+        //alert("Data Deleted Successfully");
+
+        setNotify({
+          isOpen: true,
+          message: "Data Deleted Succcessfully",
+          type: "success",
+        });
+        setTimeout(() => {
+          window.location.reload(true);
+        }, 1000);
+
+        console.log(response.status);
+
+        //setname(response.data);
+        //if (!name) return "No post!";
+      })
+      .catch((err) => {
+        setNotify({
+          isOpen: true,
+          message: `Failed To Delete Data${err}`,
+          type: "error",
+        });
+      });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     //seterrors(validationLocationProfile(values));
@@ -139,7 +177,7 @@ export default function PolicyGroup() {
                 <div>
                   <br />
 
-                  <Row xs="1" sm="2" md="3" lg="2" >
+                  <Row xs="1" sm="2" md="3" lg="2">
                     <Col>
                       {" "}
                       <Form.Group className="mb-4" controlId="#">
@@ -149,8 +187,9 @@ export default function PolicyGroup() {
                         <Form.Control
                           type="Text"
                           name="department"
-                          defaultValue={location.department.department_profile_name}
-                          
+                          defaultValue={
+                            location.department.department_profile_name
+                          }
                           readOnly
                         />
 
@@ -264,28 +303,34 @@ export default function PolicyGroup() {
 
                   {/* FOR USER DATA */}
 
-                  {data.length > 0 ? data.map((policy) => {
-    return (
-      <div className="">
-        <Row>
-          <Col>
-            <p className="">{policy.service_id}</p>
-          </Col>
-          <Col>
-            <p className="ml-3">{policy.permission_type}</p>
-          </Col>
+                  {data.length > 0
+                    ? data.map((policy) => {
+                        return (
+                          <div className="">
+                            <Row>
+                              <Col>
+                                <p className="">{policy.service_id}</p>
+                              </Col>
+                              <Col>
+                                <p className="ml-3">{policy.permission_type}</p>
+                              </Col>
 
-          <Col>
-            <div className="d-flex justify-content-between">
-              {/* <button className="btn btn-primary px-4 py-1 ">View</button> */}
-              <Button className="btn btn-primary px-3 py-1 ">Delete</Button>
-            </div>
-          </Col>
-        </Row>
-      </div>
-    );
-  })
-   : null}
+                              <Col>
+                                <div className="d-flex justify-content-between">
+                                  {/* <button className="btn btn-primary px-4 py-1 ">View</button> */}
+                                  <Button
+                                    className="btn btn-primary px-3 py-1 "
+                                    onClick={deletePolicy}
+                                  >
+                                    Delete
+                                  </Button>
+                                </div>
+                              </Col>
+                            </Row>
+                          </div>
+                        );
+                      })
+                    : null}
 
                   <hr />
                 </Form>

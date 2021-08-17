@@ -13,11 +13,11 @@ code {
 }
 .imag{
   width:60%;
-  margin-left: -22%;
+  margin-left: -28%;
 }
 .logo {
   width: 70px;
-  margin-left: 5%;
+  margin-left: 3%;
 }
 .btn1 {
   padding: 10px 50px;
@@ -244,6 +244,9 @@ code {
     margin-top: 10px;
     display: inline-block;
     
+  }
+  .cover-img{
+    display: none;
   }
   
 }

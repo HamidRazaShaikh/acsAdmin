@@ -27,7 +27,7 @@ export default function LocationProfile() {
 
   const handleChange = (e) => {
     e.persist();
-    seterrors(validationLocationProfile(values));
+    // seterrors(validationLocationProfile(values));
     setvalues({
       ...values,
       [e.target.name]: e.target.value,

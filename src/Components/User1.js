@@ -1,16 +1,18 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
-import axios from 'axios'
-import Notification from './message'
-
+import axios from "axios";
+import Notification from "./message";
 
 export default function User1() {
   const [values, setvalues] = useState({});
   const [organization, setorganization] = useState("");
   const [name, setname] = useState(null);
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
-
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   useEffect(() => {
     getData();
@@ -36,7 +38,7 @@ export default function User1() {
   };
 
   const handleReset = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     Array.from(document.getElementsByClassName("org")).forEach(
       (input) => (input.value = "")
     );
@@ -45,38 +47,36 @@ export default function User1() {
   const UpdateorgContact = () => {
     axios
       .put("/v1/fe/root/org/organization/contact", {
-        email: values.email ,
+        email: values.email,
         address: values.address,
-        city:  values.city,
+        city: values.city,
         state: values.state,
         zipCode: values.zipcode,
-        phoneNumberOne:values.phone1,
-        phoneNumberTwo:values.phone2
-        
+        phoneNumberOne: values.phone1,
+        phoneNumberTwo: values.phone2,
       })
       .then((response) => {
         //alert("Data Updated Succcessfully");
         setNotify({
           isOpen: true,
-          message: 'Updated Succcessfully',
-          type: 'success'
-      })
+          message: "Updated Succcessfully",
+          type: "success",
+        });
         console.log(response.status);
         setname(response.data);
         if (!name) return "No post!";
       })
-      .catch((err) =>{
+      .catch((err) => {
         setNotify({
           isOpen: true,
-          message: 'Failed To Update',
-          type: 'error'
-      })
-
-      } )
+          message: "Failed To Update",
+          type: "error",
+        });
+      });
   };
 
   const handleSubmit = (e) => {
-   e.preventDefault()
+    e.preventDefault();
     UpdateorgContact();
   };
 
@@ -99,14 +99,12 @@ export default function User1() {
           <Form onSubmit={handleSubmit}>
             <Row xs="1" sm="2" md="3" lg="2">
               <Col>
-              
                 <Form.Group className="mb-4" controlId="#">
                   <Form.Label>
                     <small className="text">Identifier</small>
                   </Form.Label>
                   <Form.Control
                     type="text"
-                   
                     placeholder={organization.organization_identifier}
                     readOnly
                   />
@@ -119,7 +117,7 @@ export default function User1() {
                     <small className="text">Email</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="email"
                     name="email"
                     value={values.email}
@@ -137,7 +135,7 @@ export default function User1() {
                     <small className="text">Adress</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="text"
                     name="address"
                     value={values.address}
@@ -153,7 +151,7 @@ export default function User1() {
                     <small className="text">City</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="text"
                     name="city"
                     value={values.city}
@@ -171,7 +169,7 @@ export default function User1() {
                     <small className="text">State</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="text"
                     name="state"
                     value={values.state}
@@ -187,7 +185,7 @@ export default function User1() {
                     <small className="text">ZIP Code</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="text"
                     name="zipcode"
                     value={values.zipcode}
@@ -205,7 +203,7 @@ export default function User1() {
                     <small className="text">Phone 1</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="text"
                     name="phone1"
                     value={values.phone1}
@@ -221,7 +219,7 @@ export default function User1() {
                     <small className="text">Phone 2</small>
                   </Form.Label>
                   <Form.Control
-                  className="org"
+                    className="org"
                     type="text"
                     name="phone2"
                     value={values.phone2}
@@ -233,16 +231,15 @@ export default function User1() {
             </Row>
 
             <div className="pb-5">
-              <button className="btn1" >Update</button>
-              <button className="btn2" onClick={handleReset}>Reset</button>
+              <button className="btn1">Update</button>
+              <button className="btn2" onClick={handleReset}>
+                Reset
+              </button>
             </div>
           </Form>
         </Container>
       </div>
-      <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }
