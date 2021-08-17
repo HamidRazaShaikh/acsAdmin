@@ -391,3 +391,10 @@ code {
   top: -30px;
   right: 20px;
 }
+.password-toogle-icons {
+  position: relative;
+  cursor: pointer;
+  float: right;
+  top: -50px;
+  right: 20px;
+}

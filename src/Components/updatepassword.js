@@ -4,12 +4,14 @@ import Sidebar from "./Sidebar";
 import validationpass from "./validationpass";
 import axios from "axios";
 import Notification from './message'
+import usePasswordToggle from "./usePasswordToggle";
 
 
 export default function Updatepwd() {
   const [values, setvalues] = useState({});
   const [errors, seterrors] = useState({});
   const [password, setpassword] = useState(null);
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
 
 
@@ -17,7 +19,7 @@ export default function Updatepwd() {
 
   const handleChange = (e) => {
     e.persist();
-    seterrors(validationpass(values));
+    //seterrors(validationpass(values));
     setvalues({
       ...values,
       [e.target.name]: e.target.value,
@@ -58,7 +60,7 @@ export default function Updatepwd() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    //seterrors(validationpass(values));
+    seterrors(validationpass(values));
     Updatepassword();
   };
 
@@ -87,7 +89,7 @@ export default function Updatepwd() {
                   </Form.Label>
                   <Form.Control
                   className="pass"
-                    type="password"
+                  type={PasswordInputType}
                     name="pass"
                     placeholder="password"
                     id="pass"
@@ -96,6 +98,7 @@ export default function Updatepwd() {
                     onChange={handleChange}
                   />
                 </Form.Group>
+                <span className="password-toogle-icons">{ToggleIcon}</span>
                 {errors.pass && <p className="error">{errors.pass}</p>}
                 <br />
               </Col>
@@ -110,7 +113,7 @@ export default function Updatepwd() {
                   </Form.Label>
                   <Form.Control
                   className="pass"
-                    type="password"
+                  type={PasswordInputType}
                     name="confirmpass"
                     placeholder="password"
                     id="cnfrmpass"
@@ -119,6 +122,7 @@ export default function Updatepwd() {
                     onChange={handleChange}
                   />
                 </Form.Group>
+                <span className="password-toogle-icons">{ToggleIcon}</span>
                 {errors.confirmpass && (
                   <p className="error">{errors.confirmpass}</p>
                 )}
