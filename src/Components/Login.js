@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Clogo from "../assets/images/Clogo.png";
-
 import hi from "../assets/images/hi.jpg";
+import hello from "../assets/images/hello.jpg";
 import validation from "./validation";
 import { useHistory, Link } from "react-router-dom";
 import usePasswordToggle from "./usePasswordToggle";
@@ -131,21 +131,14 @@ export default function Login() {
                   style={{ padding: "3% 40%", borderRadius: "10px" }}
                 />
                 <br />
-                <div className="text-center">
-                  <p className="forget">
-                    Don't have an account? &nbsp;
-                    <a className="register" href="Register.html">
-                      Register now
-                    </a>
-                  </p>
-                </div>
+               
               </div>
             </form>
           </div>
         </div>
         {/* right section */}
         <div className="col-md-6 col-sm-12 pic">
-          <img className=" cover-img w-100 " src={hi} alt="" />
+          <img className=" cover-img w-100 h-100 " src={hello} alt="" />
         </div>
         {/* for row */}
       </div>

@@ -14,9 +14,9 @@ code {
 .imag{
   padding-top: 5%;
   padding-left: 38%;
-  
-  /* width:60%;
-  margin-left: -28%; */
+
+  width:55%;
+  /* margin-left: -28%; */
 }
 .logo {
   width: 70px;
@@ -240,6 +240,9 @@ code {
     
   }
   
+}
+.cover-img{
+  margin-left: 2.2%;
 }
 
 @media only screen and (width: 768px) {
