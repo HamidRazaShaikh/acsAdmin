@@ -6,6 +6,7 @@ import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
+import Clogo from '../images/Clogo.png'
 
 
 const Nav = styled.div`
@@ -56,7 +57,7 @@ const Sidebar = () => {
                     <NavIcon to='#'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </NavIcon>
-                   < a href="/"><img className="logo ml-5" src="./images/Clogo.png" alt="Clogo" /></a> 
+                   < a href="/"><img className="logo ml-5" src={Clogo} alt="Clogo" /></a> 
                     <p className="pull-right text-dark font-weight-bolder h3 ml-5">Organization</p>
                 </Nav>
                 <SidebarNav sidebar={sidebar}>

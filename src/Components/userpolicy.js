@@ -5,6 +5,8 @@ import { useHistory, useParams } from "react-router-dom";
 import Notification from "./message";
 import axios from "axios";
 import { IoIosReturnLeft } from "react-icons/io";
+import ReactLoading from "react-loading";
+
 
 export default function UserPolicy(props) {
   const [medData, setmedData] = useState([]);
@@ -14,6 +16,7 @@ export default function UserPolicy(props) {
   const [group, setgroup] = useState([]);
   const [policy, setpolicy] = useState([]);
   const [policyg, setpolicyg] = useState([]);
+  const [done, setdone] = useState(undefined);
 
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -26,6 +29,7 @@ export default function UserPolicy(props) {
 
     setmedData(response.data.payload.users);
     console.log(id);
+     setdone(true);
   };
 
   const loadGroup = async () => {
@@ -116,7 +120,7 @@ export default function UserPolicy(props) {
           <div className="contact pt-5  d-flex justify-content-between">
             <div className="font-weight-bold h5">User ID: {id}</div>
           </div>
-          {/* {policyg.length > 0 ?  */}
+          {policyg.length > 0 ? 
           <div>
             <div className="contact pt-3 d-flex justify-content-between">
               <div className="font-weight-bold h5">
@@ -129,7 +133,7 @@ export default function UserPolicy(props) {
               </div>
             </div>
           </div>
-          {/* : null} */}
+          : null} 
 
           {/* for Input Feild */}
           <Form onSubmit={handleSubmit}>
@@ -252,16 +256,26 @@ export default function UserPolicy(props) {
       {/* for Contact */}
 
       <Container>
-        {dot}
+      {!done ? (
+          <ReactLoading
+            type={"bubbles"}
+            color={"grey"}
+            height={120}
+            width={320}
+            className="loader"
+          />
+        ) : (
+          dot
+        )}
         {/* {done} */}
       </Container>
-      <div className=" UserID1 bg-white mt-3  pt-3  ">
+      {/* <div className=" UserID1 bg-white mt-3  pt-3  ">
         <Container className="shadow pb-5">
-          {/* FOR USER DATA-1 */}
+          FOR USER DATA-1
 
           <hr />
         </Container>
-      </div>
+      </div> */}
       <Notification notify={notify} setNotify={setNotify} />
     </div>
   );

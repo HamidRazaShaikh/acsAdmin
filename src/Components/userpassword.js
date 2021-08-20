@@ -5,6 +5,8 @@ import { useHistory, useParams } from "react-router-dom";
 import Notification from "./message";
 import axios from "axios";
 import validationpass from "./validationpass";
+import ReactLoading from "react-loading";
+
 
 export default function UserPassword() {
   const [medData, setmedData] = useState([]);
@@ -12,6 +14,8 @@ export default function UserPassword() {
   const [errors, seterrors] = useState({});
   const history = useHistory();
   const { id } = useParams();
+  const [done, setdone] = useState(undefined);
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -23,6 +27,8 @@ export default function UserPassword() {
 
     setmedData(response.data.payload.users);
     console.log(id);
+    setdone(true);
+
   };
 
   useEffect(() => {
@@ -207,7 +213,17 @@ export default function UserPassword() {
       {/* for Contact */}
 
       <Container>
-        {dot}
+      {!done ? (
+          <ReactLoading
+            type={"bubbles"}
+            color={"grey"}
+            height={120}
+            width={320}
+            className="loader"
+          />
+        ) : (
+          dot
+        )}
       </Container>
       <Notification notify={notify} setNotify={setNotify} />
     </div>

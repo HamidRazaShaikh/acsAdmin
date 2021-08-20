@@ -8,13 +8,16 @@ import FormControl from "@material-ui/core/FormControl";
 import { useHistory, useParams } from "react-router-dom";
 import Notification from "./message";
 import axios from "axios";
+import ReactLoading from "react-loading";
 
 export default function UserDetailProfile(props) {
-//   const [medicals, setmedicals] = useState([]);
+  //   const [medicals, setmedicals] = useState([]);
   const [medData, setmedData] = useState([]);
   const [values, setvalues] = useState({});
   const history = useHistory();
   const { id } = useParams();
+  const [done, setdone] = useState(undefined);
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -26,6 +29,7 @@ export default function UserDetailProfile(props) {
 
     setmedData(response.data.payload.users);
     console.log(id);
+    setdone(true);
   };
 
   useEffect(() => {
@@ -88,8 +92,8 @@ export default function UserDetailProfile(props) {
     .map((meds) => {
       return (
         <div>
-            <div className="contact py-5 d-flex justify-content-between"></div>
-            <div className="font-weight-bold h5">User ID: {id}</div>
+          <div className="contact py-5 d-flex justify-content-between"></div>
+          <div className="font-weight-bold h5">User ID: {id}</div>
           <Form onSubmit={handleSubmit}>
             <Row xs="1" sm="2" md="3" lg="2">
               <Col>
@@ -146,10 +150,12 @@ export default function UserDetailProfile(props) {
                 {" "}
                 <Form.Group className="mb-4 " controlId="#">
                   <Form.Label>
-                    <small className="text">Date Of Birth:-<span className="db">{meds.u_date_of_birth}</span></small>
+                    <small className="text">
+                      Date Of Birth:-
+                      <span className="db">{meds.u_date_of_birth}</span>
+                    </small>
                   </Form.Label>
                   <Form.Control
-                  
                     type="date"
                     name="dob"
                     placeholder={meds.u_date_of_birth}
@@ -258,55 +264,58 @@ export default function UserDetailProfile(props) {
             Contact
           </button>
           {/* </a> */}
-          {/* <a href="/useremail"> */} 
-          <button className="btn02" 
-        onClick={() => history.push(`/useremail/${id}`)}
-        >
-        Email
+          {/* <a href="/useremail"> */}
+          <button
+            className="btn02"
+            onClick={() => history.push(`/useremail/${id}`)}
+          >
+            Email
           </button>
           {/* </a> */}
           {/* <a href="/userpassword"> */}{" "}
           <button
             className="btn02"
-             onClick={() => history.push(`/userpassword/${id}`)}
+            onClick={() => history.push(`/userpassword/${id}`)}
           >
             Password
           </button>
           {/* </a> */}
-          {/* <a href="/useraccess"> */}
-            {" "}
-            <button
+          {/* <a href="/useraccess"> */}{" "}
+          <button
             className="btn02"
             onClick={() => history.push(`/useraccess/${id}`)}
           >
             Access
           </button>
-          {/* </a> */}
-         
-            {" "}
-            <button
+          {/* </a> */}{" "}
+          <button
             className="btn02"
             onClick={() => history.push(`/userpolicy/${id}`)}
           >
             Policy
-          </button>
-          
-        
-            {" "}
-            <button
+          </button>{" "}
+          <button
             className="btn02"
             onClick={() => history.push(`/userdepartment/${id}`)}
           >
             Department
           </button>
-          
         </Row>
       </div>
       {/* for Contact */}
 
       <Container>
-        
-         {dot}
+        {!done ? (
+          <ReactLoading
+            type={"bubbles"}
+            color={"grey"}
+            height={120}
+            width={320}
+            className="loader"
+          />
+        ) : (
+          dot
+        )}
       </Container>
       <Notification notify={notify} setNotify={setNotify} />
     </div>

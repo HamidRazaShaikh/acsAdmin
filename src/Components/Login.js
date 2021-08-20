@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Clogo from "../assets/images/Clogo.png";
 import cover from "../assets/images/cover.png";
+import hi from "../assets/images/hi.jpg"
 import validation from "./validation";
 import { useHistory, Link } from "react-router-dom";
 import usePasswordToggle from "./usePasswordToggle";
@@ -145,7 +146,7 @@ export default function Login() {
         </div>
         {/* right section */}
         <div className="col-md-6 col-sm-12 pic">
-          <img className=" cover-img w-100 h-100" src={cover} alt="" />
+          <img className=" cover-img w-100 h-100" src={hi} alt="" />
         </div>
         {/* for row */}
       </div>

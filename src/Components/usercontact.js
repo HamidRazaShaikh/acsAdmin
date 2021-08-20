@@ -4,12 +4,15 @@ import Sidebar from "./Sidebar";
 import { useHistory, useParams } from "react-router-dom";
 import Notification from "./message";
 import axios from "axios";
+import ReactLoading from "react-loading";
 
 export default function UserContact(props) {
   const [medData, setmedData] = useState([]);
   const [values, setvalues] = useState({});
   const history = useHistory();
   const { id } = useParams();
+  const [done, setdone] = useState(undefined);
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -20,6 +23,7 @@ export default function UserContact(props) {
     const response = await axios.get(`/v1/fe/root/usr/users/offset/0`);
 
     setmedData(response.data.payload.users);
+    setdone(true);
   };
 
   useEffect(() => {
@@ -49,7 +53,7 @@ export default function UserContact(props) {
         phoneNumberOne: values.phone,
         phoneNumberTwo: values.phone2,
         state: values.state,
-        zipCode: values.zipcode
+        zipCode: values.zipcode,
       })
       .then((response) => {
         //alert("Data Updated Succcessfully");
@@ -183,13 +187,11 @@ export default function UserContact(props) {
                     value={values.phone}
                     onChange={handleChange}
                     required
-                    
                   />
                 </Form.Group>
               </Col>
             </Row>
             <Row xs="1" sm="2" md="3" lg="2">
-              
               <Col>
                 {" "}
                 <Form.Group className="mb-4 " controlId="#">
@@ -203,17 +205,16 @@ export default function UserContact(props) {
                     value={values.phone2}
                     onChange={handleChange}
                     required
-                    
                   />
                 </Form.Group>
               </Col>
             </Row>
 
             <div className="pb-5">
-              <button className="btn1">
-                Update
+              <button className="btn1">Update</button>
+              <button className="btn2" onClick={handlecancel}>
+                Cancel
               </button>
-              <button className="btn2" onClick={handlecancel}>Cancel</button>
             </div>
           </Form>
         </div>
@@ -237,9 +238,13 @@ export default function UserContact(props) {
           {/* <a href="/usercontact"> */}{" "}
           <button className="btn01">Contact</button>
           {/* </a> */}
-          {/* <a href="/useremail"> */}
-            {" "}
-            <button className="btn02" onClick={( )=> history.push(`/useremail/${id}`)}>Email</button>
+          {/* <a href="/useremail"> */}{" "}
+          <button
+            className="btn02"
+            onClick={() => history.push(`/useremail/${id}`)}
+          >
+            Email
+          </button>
           {/* </a> */}
           <a href="/userpassword">
             {" "}
@@ -261,7 +266,19 @@ export default function UserContact(props) {
       </div>
       {/* for Contact */}
 
-      <Container>{dot}</Container>
+      <Container>
+        {!done ? (
+          <ReactLoading
+            type={"bubbles"}
+            color={"grey"}
+            height={120}
+            width={320}
+            className="loader"
+          />
+        ) : (
+          dot
+        )}
+      </Container>
       <Notification notify={notify} setNotify={setNotify} />
     </div>
   );

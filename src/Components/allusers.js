@@ -5,20 +5,20 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import { useHistory} from "react-router-dom";
-import ReactLoading from 'react-loading';
+import { useHistory } from "react-router-dom";
+import ReactLoading from "react-loading";
 
 function AllUsers() {
   const [searchTerm, setsearchTerm] = useState("");
   const [medicals, setmedicals] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const history = useHistory();
-  const [done, setdone] = useState(undefined)
+  const [done, setdone] = useState(undefined);
 
   const loadLocations = async () => {
     const response = await axios.get(`/v1/fe/root/usr/users/offset/0`);
     setmedicals(response.data.payload.users);
-    setdone(true)
+    setdone(true);
   };
 
   useEffect(() => {
@@ -26,58 +26,46 @@ function AllUsers() {
   }, []);
 
   const UserDetailProfile = (id) => {
-    console.log(id)
-    history.push(`/userdetailprofile/${id}`)
-  }
+    console.log(id);
+    history.push(`/userdetailprofile/${id}`);
+  };
 
   const usersPerPage = 10;
   const pagesVisited = pageNumber * usersPerPage;
- 
+
   const displayUsers = medicals
     .slice(pagesVisited, pagesVisited + usersPerPage)
     .filter((location) => {
       if (searchTerm === "") {
         return medicals;
       } else if (
-        location.u_first_name
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+        location.u_first_name.toLowerCase().includes(searchTerm.toLowerCase())
       ) {
         return medicals;
       } else if (
-        location.u_middle_name
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+        location.u_middle_name.toLowerCase().includes(searchTerm.toLowerCase())
       ) {
         return medicals;
       } else if (
-        location.u_last_name
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+        location.u_last_name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return medicals;
+      } else if (
+        location.ua_email.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return medicals;
+      } else if (
+        location.ua_access.toLowerCase().includes(searchTerm.toLowerCase())
       ) {
         return medicals;
       }
-     
-      else if (
-        location.ua_email
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      ) {
-        return medicals;
-      } else if (
-        location.ua_access
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      ) {
-        return medicals;
-      }
-    //   else if (
-    //     location.department.department_profile_name
-    //       .toLowerCase()
-    //       .includes(searchTerm.toLowerCase())
-    //   ) {
-    //     return medicals;
-    //   }
+      //   else if (
+      //     location.department.department_profile_name
+      //       .toLowerCase()
+      //       .includes(searchTerm.toLowerCase())
+      //   ) {
+      //     return medicals;
+      //   }
     })
     .map((location, index) => {
       return (
@@ -92,7 +80,7 @@ function AllUsers() {
           <td>
             <Link
               class="btn btn-primary px-4 py-1 "
-              onClick={( )=> UserDetailProfile(location.ua_user_id)}
+              onClick={() => UserDetailProfile(location.ua_user_id)}
             >
               View
             </Link>
@@ -120,7 +108,6 @@ function AllUsers() {
       <Sidebar />
       <div className="container contact py-5 d-flex justify-content-between">
         <div className="font-weight-bold h5">All Users</div>
-        
       </div>
       <div className="UserID bg-white mt-3 pt-4">
         <div className="container bg-white">
@@ -199,8 +186,17 @@ function AllUsers() {
                 </td>
               </tr>
 
-             
-              {!done ? <ReactLoading type={"bubbles"} color={"grey"} height={120} width={320} className="loader" /> : displayUsers}
+              {!done ? (
+                <ReactLoading
+                  type={"bubbles"}
+                  color={"grey"}
+                  height={120}
+                  width={320}
+                  className="loader"
+                />
+              ) : (
+                displayUsers
+              )}
 
               <div>
                 <ReactPaginate
