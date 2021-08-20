@@ -38,6 +38,8 @@ import Allpatients from './Components/allpatients';
 import UpdatePolicyGroup from './Components/updatepolicygroup';
 import Addlimit from './Components/addlimit';
 
+import Login2 from './Components/Login2'
+
 
 
 
@@ -53,7 +55,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/">
-          <Login />
+          <Login2 />
           </Route>
 
           <Route path="/User1">

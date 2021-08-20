@@ -1,0 +1,64 @@
+.pointerButton:hover {
+
+    color : #00AEEF !important;
+    cursor : pointer !important;
+    text-decoration: none !important;
+  
+  
+  }
+  input[type="email"],
+  select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="password"],
+  select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="text"],
+  select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="password"]:focus,
+  select.form-control:focus {
+    
+    border-bottom: none;
+    border-radius: 10px ;
+  
+  }
+  
+  input[type="email"]:focus,
+  select.form-control:focus {
+      border-bottom: none;
+      border-radius: 10px ;
+    
+  }
+  
+  
+  input[type="text"]:focus,
+  select.form-control:focus {
+      border-bottom: none;
+      border-radius: 10px ;
+    
+  }
+  
+  
+  
+  
