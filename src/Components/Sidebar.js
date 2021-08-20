@@ -45,10 +45,10 @@ const SidebarWrap = styled.div`
   overflow: auto;
 
 `;
-const Sidebar = () => {
+const Sidebar = (props) => {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
-
+const {title} = props
     return (
         <div>
 
@@ -58,7 +58,7 @@ const Sidebar = () => {
                         <FaIcons.FaBars onClick={showSidebar} />
                     </NavIcon>
                    < a href="/"><img className="logo ml-5" src={Clogo} alt="Clogo" /></a> 
-                    <p className="pull-right text-dark font-weight-bolder h3 ml-5">Organization</p>
+                    <p className="pull-right text-dark font-weight-bolder h3 ml-5">{title}</p>
                 </Nav>
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>

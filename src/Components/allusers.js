@@ -105,7 +105,7 @@ function AllUsers() {
 
   return (
     <div className="mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Users" />
       <div className="container contact py-5 d-flex justify-content-between">
         <div className="font-weight-bold h5">All Users</div>
       </div>

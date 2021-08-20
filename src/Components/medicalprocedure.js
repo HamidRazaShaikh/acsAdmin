@@ -3,7 +3,7 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import Notification from './message'
+import Notification from "./message";
 
 export default function MedicalProcedure() {
   const [depatrments, setdepartments] = useState([]);
@@ -11,8 +11,11 @@ export default function MedicalProcedure() {
   const [errors, seterrors] = useState({});
   const [data, setdata] = useState("");
   const history = useHistory();
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
-
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const loadLocations = async () => {
     const response = await axios.get("/v1/fe/root/org/department/all");
@@ -39,20 +42,20 @@ export default function MedicalProcedure() {
   const PostMedicalProcedure = () => {
     axios
       .post("/v1/fe/root/org/procedure", {
-    departmentId: values.id,
-    label: values.labels,
-    name: values.name,
-    description: values.description ,
-    types: values.type,
-    cost: values.cost
+        departmentId: values.id,
+        label: values.labels,
+        name: values.name,
+        description: values.description,
+        types: values.type,
+        cost: values.cost,
       })
       .then((response) => {
         // alert("Data Submited Succcessfully");
         setNotify({
           isOpen: true,
-          message: 'Submited Successfully',
-          type: 'success'
-      })
+          message: "Submited Successfully",
+          type: "success",
+        });
         console.log(response.status);
         setdata(response.data);
         //console.log(data);
@@ -61,9 +64,9 @@ export default function MedicalProcedure() {
       .catch((err) => {
         setNotify({
           isOpen: true,
-          message: 'Failed To Submit',
-          type: 'error'
-      })
+          message: "Failed To Submit",
+          type: "error",
+        });
       });
   };
 
@@ -75,7 +78,7 @@ export default function MedicalProcedure() {
 
   return (
     <div className="bg-light">
-      <Sidebar />
+      <Sidebar title="Organization" />
 
       <div className="container pt-4">
         {/* for Contact */}
@@ -102,7 +105,8 @@ export default function MedicalProcedure() {
                   >
                     {depatrments.map((location, index) => (
                       <option value={location.department_profile_id}>
-                        {location.department_profile_name} {location.department_profile_id}
+                        {location.department_profile_name}{" "}
+                        {location.department_profile_id}
                       </option>
                     ))}
                   </select>
@@ -110,10 +114,9 @@ export default function MedicalProcedure() {
                   {/* <Form.Control type="Text" Name="address" placeholder="department" /> */}
                 </Form.Group>
               </Col>
-              
             </Row>
             <Row xs="1" sm="2" md="3" lg="2">
-            <Col>
+              <Col>
                 {" "}
                 <Form.Group className="mb-4" controlId="#">
                   <Form.Label>
@@ -137,7 +140,7 @@ export default function MedicalProcedure() {
                   </Form.Label>
                   <Form.Control
                     type="Text"
-                   name="name"
+                    name="name"
                     placeholder="procedure name"
                     value={values.name}
                     onChange={handleChange}
@@ -145,10 +148,9 @@ export default function MedicalProcedure() {
                   />
                 </Form.Group>
               </Col>
-              
             </Row>
             <Row xs="1" sm="2" md="3" lg="2">
-            <Col>
+              <Col>
                 {" "}
                 <Form.Group className="mb-4 " controlId="#">
                   <Form.Label>
@@ -197,7 +199,6 @@ export default function MedicalProcedure() {
                 </Form.Group>
               </Col>
             </Row>
-           
 
             <div className="pb-5">
               <button className="btn1">Save</button>
@@ -208,10 +209,7 @@ export default function MedicalProcedure() {
           </Form>
         </Container>
       </div>
-      <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

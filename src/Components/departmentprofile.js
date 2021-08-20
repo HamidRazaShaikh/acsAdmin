@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import {useHistory } from 'react-router-dom'
-import Notification from './message'
-
+import { useHistory } from "react-router-dom";
+import Notification from "./message";
 
 function AllLocations() {
   const [locations, setlocations] = useState([]);
   const [values, setvalues] = useState({});
   const [errors, seterrors] = useState({});
   const [data, setdata] = useState("");
-  const history = useHistory()
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const history = useHistory();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const loadLocations = async () => {
-    const response = await axios.get(
-      "/v1/fe/root/org/location/all"
-    );
+    const response = await axios.get("/v1/fe/root/org/location/all");
     setlocations(response.data.payload.locations);
   };
 
@@ -35,50 +36,48 @@ function AllLocations() {
   };
 
   const handlecancel = () => {
-    history.push('/alldepartments')
-    }
+    history.push("/alldepartments");
+  };
 
-    const PostDepartmentProf = () => {
-        axios
-        .post("/v1/fe/root/org/department", {
-            locationId: values.id,
-            label: values.label,
-            name: values.name,
-            description: values.description
-          
-        })
-        .then((response) => {
-          //alert("Data Submited Succcessfully");
-          setNotify({
-            isOpen: true,
-            message: 'Submitted Successfully',
-            type: 'success'
-        })
-          console.log(response.status);
-          setdata(response.data);
-          console.log(data)
-          if (!data) return "No post!";
-        })
-        .catch((err) => 
-        {
-          setNotify({
-            isOpen: true,
-            message: 'Fail To Submit',
-            type: 'error'
-        })
+  const PostDepartmentProf = () => {
+    axios
+      .post("/v1/fe/root/org/department", {
+        locationId: values.id,
+        label: values.label,
+        name: values.name,
+        description: values.description,
+      })
+      .then((response) => {
+        //alert("Data Submited Succcessfully");
+        setNotify({
+          isOpen: true,
+          message: "Submitted Successfully",
+          type: "success",
         });
-    }
+        console.log(response.status);
+        setdata(response.data);
+        console.log(data);
+        if (!data) return "No post!";
+      })
+      .catch((err) => {
+        setNotify({
+          isOpen: true,
+          message: "Fail To Submit",
+          type: "error",
+        });
+      });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-       //seterrors(validationLocationProfile(values));
-       PostDepartmentProf();
-      };
-    
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //seterrors(validationLocationProfile(values));
+    PostDepartmentProf();
+  };
 
   return (
     <div className="mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Organization" />
+
       <div className="fluid">
         <h4 className="page3">Department Profile</h4>
       </div>
@@ -103,11 +102,15 @@ function AllLocations() {
                     onChange={handleChange}
                     required
                   /> */}
-                  <select name="id" value={values.id } onChange={handleChange} className="shadow drpdown">
+                  <select
+                    name="id"
+                    value={values.id}
+                    onChange={handleChange}
+                    className="shadow drpdown"
+                  >
                     {locations.map((location, index) => (
                       <option value={location.id}>
-                        {location.address}-{location.city} {" "}
-                        {location.id}
+                        {location.address}-{location.city} {location.id}
                       </option>
                     ))}
                   </select>
@@ -179,7 +182,9 @@ function AllLocations() {
 
             <div className="pb-5 pt-3">
               <button className="btn1">Save</button>
-              <button className="btn2" onClick={handlecancel}>Cancel</button>
+              <button className="btn2" onClick={handlecancel}>
+                Cancel
+              </button>
             </div>
             <hr />
             {/* FOR USER DATA-2 */}
@@ -187,10 +192,7 @@ function AllLocations() {
         </Container>
       </div>
 
-      <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

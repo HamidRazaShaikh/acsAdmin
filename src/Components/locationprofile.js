@@ -72,7 +72,7 @@ history.push('/orgprofile')
 
   return (
     <div className="bg-light">
-      <Sidebar />
+      <Sidebar title="Organization"/>
 
       <div className="container pt-4">
         {/* for Contact */}

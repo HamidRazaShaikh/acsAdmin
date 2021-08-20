@@ -22,7 +22,7 @@ export default function Orgprofile() {
 
   return (
     <div className="bg-light">
-      <Sidebar />
+     <Sidebar title="Organization"/>
       <div className="container pt-5">
         {/* for Contact */}
         <div className="contact py-5 d-flex justify-content-between">

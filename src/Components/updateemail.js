@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import validationemail from "./validationemail";
-import axios from 'axios'
-import Notification from './message'
-
+import axios from "axios";
+import Notification from "./message";
 
 export default function Updatemail(props) {
-    const [values, setvalues] = useState({});
+  const [values, setvalues] = useState({});
   const [errors, seterrors] = useState({});
-  const [email, setemail] = useState(null)
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [email, setemail] = useState(null);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const handleSubmit = (e) => {
-   
     e.preventDefault();
-    seterrors(validationemail(values));    
-    Updateemail()
-   
+    seterrors(validationemail(values));
+    Updateemail();
   };
 
   const handleChange = (e) => {
@@ -38,28 +39,29 @@ export default function Updatemail(props) {
 
   const Updateemail = () => {
     axios
-      .put('/v1/fe/root/org/admin/account', {
-        email: values.newemail
+      .put("/v1/fe/root/org/admin/account", {
+        email: values.newemail,
       })
       .then((response) => {
-          //alert('Email Updated Succcessfully')
-          setNotify({
-            isOpen: true,
-            message: 'Email Updated Succcessfully',
-            type: 'success'
-        })
-
-          console.log(response.status)
-        setemail(response.data);
-        if (!email) return "No post!"
-      }).catch((err) => {
+        //alert('Email Updated Succcessfully')
         setNotify({
           isOpen: true,
-          message: 'Fail to update',
-          type: 'error'
+          message: "Email Updated Succcessfully",
+          type: "success",
+        });
+
+        console.log(response.status);
+        setemail(response.data);
+        if (!email) return "No post!";
       })
-      })
-  }
+      .catch((err) => {
+        setNotify({
+          isOpen: true,
+          message: "Fail to update",
+          type: "error",
+        });
+      });
+  };
   const ShowData = (props) => {
     const { organization } = props;
 
@@ -108,7 +110,7 @@ export default function Updatemail(props) {
               </Row>
 
               <div className="pb-5">
-                <button type='submit' className="btn1" >
+                <button type="submit" className="btn1">
                   Update
                   {/* onClick={handleUpdate} */}
                 </button>
@@ -127,11 +129,9 @@ export default function Updatemail(props) {
     }
   };
 
-  
-
   return (
     <div className=" mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Profile"/>
       <div className="container pt-5">
         {/* for Contact */}
         <div className="contact py-5 d-flex justify-content-between">
@@ -140,11 +140,7 @@ export default function Updatemail(props) {
         {ShowData(props)}
       </div>
 
-      <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
-            
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

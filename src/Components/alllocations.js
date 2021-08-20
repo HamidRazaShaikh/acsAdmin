@@ -14,12 +14,10 @@ function AllLocations() {
   const [pageNumber, setPageNumber] = useState(0);
   const [done, setdone] = useState(undefined);
 
-
   const loadLocations = async () => {
     const response = await axios.get(`/v1/fe/root/org/location/all`);
     setlocations(response.data.payload.locations);
     setdone(true);
-
   };
 
   useEffect(() => {
@@ -29,9 +27,7 @@ function AllLocations() {
   const usersPerPage = 10;
   const pagesVisited = pageNumber * usersPerPage;
 
-  
-    
-    const displayUsers = locations
+  const displayUsers = locations
     .slice(pagesVisited, pagesVisited + usersPerPage)
     .filter((location) => {
       if (searchTerm === "") {
@@ -54,45 +50,43 @@ function AllLocations() {
       // ) {
       //   return locations;
       // }
-      
       else if (
         location.state.toLowerCase().includes(searchTerm.toLowerCase())
       ) {
         return locations;
       }
-      
     })
     .map((location, index) => {
-                    
       return (
-        
         //<div className="" key={location.id}>
-         <tr>
-                  <td >{location.email}</td>
-                  <td className="w-50" >{location.address}</td>
-                  <td className="w-25" >{location.city}</td>
-                  <td className="w-25">{location.zip_code}</td>
-                  <td >{location.state}</td>
-                 
-                  <td><Link
-            class="btn btn-primary px-4 py-1 "
-            to={`/locationprofileupdate/${location.id}`}
-          >
-            View
-          </Link></td>
-                  <td><Link
-            class="btn btn-warning px-4 py-1 "
-            to={`/locationprofileupdate/${location.id}`}
-          >
-            Edit
-          </Link></td>
-                  </tr>
-                  //</div>
-                 
-                  );
-                  
-                });
-    
+        <tr>
+          <td>{location.email}</td>
+          <td className="w-50">{location.address}</td>
+          <td className="w-25">{location.city}</td>
+          <td className="w-25">{location.zip_code}</td>
+          <td>{location.state}</td>
+
+          <td>
+            <Link
+              class="btn btn-primary px-4 py-1 "
+              to={`/locationprofileupdate/${location.id}`}
+            >
+              View
+            </Link>
+          </td>
+          <td>
+            <Link
+              class="btn btn-warning px-4 py-1 "
+              to={`/locationprofileupdate/${location.id}`}
+            >
+              Edit
+            </Link>
+          </td>
+        </tr>
+        //</div>
+      );
+    });
+
   const pageCount = Math.ceil(locations.length / usersPerPage);
 
   const changePage = ({ selected }) => {
@@ -101,7 +95,8 @@ function AllLocations() {
 
   return (
     <div className="mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Organization" />
+
       <div className="fluid">
         <h4 className="page3">All Locations</h4>
       </div>
@@ -182,8 +177,6 @@ function AllLocations() {
               ) : (
                 displayUsers
               )}
-
-              
 
               <div>
                 <ReactPaginate

@@ -75,7 +75,7 @@ export default function PolicyGroup() {
 
   return (
     <div className="bg-light">
-      <Sidebar />
+      <Sidebar title="Access Control"/>
 
       <div className="container pt-4">
         {/* for Contact */}

@@ -250,7 +250,7 @@ function UpdateMedicalProcedure(props) {
 
   return (
     <div className="mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Organization"/>
       <div className="fluid">
         <h4 className="page3">Medical Procedure</h4>
       </div>

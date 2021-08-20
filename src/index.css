@@ -12,8 +12,11 @@ code {
   height: 100vh;
 }
 .imag{
-  width:60%;
-  margin-left: -28%;
+  padding-top: 5%;
+  padding-left: 38%;
+  
+  /* width:60%;
+  margin-left: -28%; */
 }
 .logo {
   width: 70px;

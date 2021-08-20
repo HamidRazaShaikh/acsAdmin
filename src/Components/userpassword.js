@@ -151,7 +151,7 @@ export default function UserPassword() {
 
   return (
     <div className="bg-light">
-      <Sidebar />
+       <Sidebar title="Users" />
 
       <div className="container-fluid d-flex justify-content-center pt-4 upbton">
         <Row>

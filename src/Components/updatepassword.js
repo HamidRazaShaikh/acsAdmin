@@ -3,19 +3,19 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import validationpass from "./validationpass";
 import axios from "axios";
-import Notification from './message'
+import Notification from "./message";
 import usePasswordToggle from "./usePasswordToggle";
-
 
 export default function Updatepwd() {
   const [values, setvalues] = useState({});
   const [errors, seterrors] = useState({});
   const [password, setpassword] = useState(null);
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
-
-
- 
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   const handleChange = (e) => {
     e.persist();
@@ -28,11 +28,9 @@ export default function Updatepwd() {
 
   const handleReset = () => {
     Array.from(document.getElementsByClassName("pass")).forEach(
-      (input) => (input.value = ""),
+      (input) => (input.value = "")
       //values.pass == ""
     );
-
-   
   };
 
   const Updatepassword = () => {
@@ -44,19 +42,20 @@ export default function Updatepwd() {
         // alert("Password Updated Succcessfully");
         setNotify({
           isOpen: true,
-          message: 'Password Updated Succcessfully',
-          type: 'success'
-      })
+          message: "Password Updated Succcessfully",
+          type: "success",
+        });
         console.log(response.status);
         setpassword(response.data);
         if (!password) return "No post!";
-      }).catch(err => {
+      })
+      .catch((err) => {
         setNotify({
           isOpen: true,
-          message: 'Fail to update Password ',
-          type: 'error'
-      })
-      })
+          message: "Fail to update Password ",
+          type: "error",
+        });
+      });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +65,7 @@ export default function Updatepwd() {
 
   return (
     <div className=" mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Profile"/>
       <div className="container pt-5">
         {/* for Contact */}
         <div className="contact py-5 d-flex justify-content-between">
@@ -88,8 +87,8 @@ export default function Updatepwd() {
                     <small className="text">New Password</small>
                   </Form.Label>
                   <Form.Control
-                  className="pass"
-                  type={PasswordInputType}
+                    className="pass"
+                    type={PasswordInputType}
                     name="pass"
                     placeholder="password"
                     id="pass"
@@ -112,8 +111,8 @@ export default function Updatepwd() {
                     <small className="text">Confirm New Password</small>
                   </Form.Label>
                   <Form.Control
-                  className="pass"
-                  type={PasswordInputType}
+                    className="pass"
+                    type={PasswordInputType}
                     name="confirmpass"
                     placeholder="password"
                     id="cnfrmpass"
@@ -139,10 +138,7 @@ export default function Updatepwd() {
           </Form>
         </Container>
       </div>
-      <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

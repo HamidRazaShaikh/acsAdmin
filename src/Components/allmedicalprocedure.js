@@ -119,7 +119,7 @@ function AllMedicalProcedure() {
 
   return (
     <div className="mainbody bg-light">
-      <Sidebar />
+      <Sidebar title="Organization"/>
       <div className="container contact py-5 d-flex justify-content-between">
         <div className="font-weight-bold h5">All Medical Procedures</div>
         <div className="">

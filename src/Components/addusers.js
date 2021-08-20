@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import Radio from "@material-ui/core/Radio";
@@ -6,89 +6,88 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
-import {useHistory } from 'react-router-dom'
-import Notification from './message'
-import {  makeStyles } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+import Notification from "./message";
+import { makeStyles } from "@material-ui/core";
 
-
-const useStyles = makeStyles(theme => ({
-    pageContent: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3)
-    },
-    searchInput: {
-        width: '75%'
-    },
-    newButton: {
-        position: 'absolute',
-        right: '10px'
-    }
-}))
+const useStyles = makeStyles((theme) => ({
+  pageContent: {
+    margin: theme.spacing(5),
+    padding: theme.spacing(3),
+  },
+  searchInput: {
+    width: "75%",
+  },
+  newButton: {
+    position: "absolute",
+    right: "10px",
+  },
+}));
 
 export default function AddUser() {
+  const [values, setvalues] = useState({});
+  const history = useHistory();
+  const [data, setdata] = useState("");
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
-    const [values, setvalues] = useState({});
-    const history = useHistory()
-    const [data, setdata] = useState("");
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const handleChange = (e) => {
+    e.persist();
+    //seterrors(validationLocationProfile(values));
+    setvalues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handlecancel = () => {
+    history.push("/allusers");
+  };
 
-    const handleChange = (e) => {
-        e.persist();
-        //seterrors(validationLocationProfile(values));
-        setvalues({
-          ...values,
-          [e.target.name]: e.target.value,
+  const PostUserData = () => {
+    axios
+      .post("/v1/fe/root/usr/user/profile", {
+        firstName: values.firstname,
+        middleName: values.middlename,
+        lastName: values.lastname,
+        dateOfBirth: values.dob,
+        placeOfBirth: values.birthplace,
+        contryOfBirth: values.birthcountry,
+        gender: values.gender,
+      })
+      .then((response) => {
+        //alert("Data Submited Succcessfully");
+        setNotify({
+          isOpen: true,
+          message: "Submitted Successfully",
+          type: "success",
         });
-    }
-    const handlecancel = () => {
-        history.push('/alldepartments')
-        }
+        console.log(response.status);
+        setdata(response.data);
+        console.log(data);
+        if (!data) return "No post!";
+      })
+      .catch((err) => {
+        setNotify({
+          isOpen: true,
+          message: "Fail To Submit",
+          type: "error",
+        });
+        console.log(err);
+      });
+  };
 
-        const PostUserData = () => {
-          axios
-          .post("/v1/fe/root/usr/user/profile", {
-            
-            firstName:values.firstname ,
-            middleName : values.middlename,
-            lastName : values.lastname,
-            dateOfBirth : values.dob,
-            placeOfBirth : values.birthplace,
-            contryOfBirth :values.birthcountry,
-            gender : values.gender  
-          })
-          .then((response) => {
-            //alert("Data Submited Succcessfully");
-            setNotify({
-              isOpen: true,
-              message: 'Submitted Successfully',
-              type: 'success'
-          })
-            console.log(response.status);
-            setdata(response.data);
-            console.log(data)
-            if (!data) return "No post!";
-          })
-          .catch((err) => 
-          {
-            setNotify({
-              isOpen: true,
-              message: 'Fail To Submit',
-              type: 'error'
-          })
-          console.log(err)
-          });
-      }
-  
-      const handleSubmit = (e) => {
-          e.preventDefault();
-         //seterrors(validationLocationProfile(values));
-         PostUserData();
-        };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //seterrors(validationLocationProfile(values));
+    PostUserData();
+  };
 
   return (
     <div className="bg-light">
-      <Sidebar />
-
+      <Sidebar title="Users" />
       <div className="container pt-4">
         {/* for Contact */}
         <div className="contact py-5 d-flex justify-content-between">
@@ -236,18 +235,15 @@ export default function AddUser() {
             </Row>
 
             <div className="pb-5">
-              <button className="btn1" >
-                Save
+              <button className="btn1">Save</button>
+              <button className="btn2" onClick={handlecancel}>
+                Cancel
               </button>
-              <button className="btn2" onClick={handlecancel}>Cancel</button>
             </div>
           </Form>
         </Container>
       </div>
-      <Notification
-                notify={notify}
-                setNotify={setNotify}
-            />
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }
