@@ -133,7 +133,7 @@ export default function UserPolicy(props) {
               </div>
             </div>
           </div>
-          : null} 
+          : null}  
 
           {/* for Input Feild */}
           <Form onSubmit={handleSubmit}>
@@ -171,7 +171,8 @@ export default function UserPolicy(props) {
           </Form>
           <div>
             {policyg.length > 0
-              ? policyg.policies.map((pol) => {
+              ?
+             policyg.policies.map((pol) => { 
                   return (
                     <div>
                       <Row xs="2" sm="2" md="2" lg="2">
